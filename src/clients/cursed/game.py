@@ -2,6 +2,7 @@ import curses
 
 from common.variousTypes import RoomType
 from common.shelter import Shelter
+from common.networking import QueryServer
 
 KEY_ESCAPE = 27
 
@@ -17,6 +18,8 @@ class Game():
 		self.minSizeX = shelterSize[0] * roomSize[0] + 30
 		self.minSizeY = shelterSize[1] * roomSize[1] + 10
 		self.mouse = {'y': None, 'x': None, 'state': None}
+		self.tcpAdd = address.split(':')[0]
+		self.tcpPort = int(address.split(':')[1])
 	
 	def start(self):
 		'''
@@ -68,6 +71,7 @@ class Game():
 			
 			self.dealInputs(screen)
 			self.shelter.update()
+			self.lastAnswer = QueryServer(self.tcpAdd, self.tcpPort, {'query' : 'refresh'})
 			
 			(dy, dx) = screen.getmaxyx()
 						
@@ -114,6 +118,7 @@ class Game():
 		win.addstr(1, 1, 'Log')
 		mouseStr = 'mouse: {} {} {}'.format(self.mouse['x'], self.mouse['y'], self.mouse['state'])
 		win.addstr(2, 1, mouseStr)
+		win.addstr(3, 1, '{}'.format(self.lastAnswer))
 	
 	
 	def drawRoom(self, win, room):

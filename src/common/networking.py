@@ -3,9 +3,10 @@ import errno
 #from socket import error as socket_error
 import json
 
+def CompactJson(d):
+	return bytes(json.dumps(d, separators=(',', ':')), 'UTF-8')
+
 def QueryServer(tcpAdd, tcpPort, request):
-	# format query
-	r = bytes(json.dumps(request), 'UTF-8')
 	# try to connect
 	try:
 		soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -16,7 +17,7 @@ def QueryServer(tcpAdd, tcpPort, request):
 		answer = {'status' : 'error', 'message' : 'connection refused'}
 		return answer
 	# send query
-	soc.sendall(r)
+	soc.sendall(CompactJson(request))
 	# read answer
 	data = soc.recv(1024)
 	soc.close()

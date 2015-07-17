@@ -1,3 +1,3 @@
 #!/bin/bash
-PYTHONPATH=$PYTHONPATH:../..
+PYTHONPATH=$PYTHONPATH:../
 python3 main.py $*

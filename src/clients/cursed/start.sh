@@ -1,4 +1,4 @@
 #!/bin/bash
-PYTHONPATH=$PYTHONPATH:../..
+export PYTHONPATH=$PYTHONPATH:../../
 TERM=xterm-256color
 python3 main.py $*

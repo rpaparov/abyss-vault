@@ -26,6 +26,7 @@ def Main():
 		server.serve_forever()
 	except KeyboardInterrupt:
 		pass
+	server.shutdown()
 
 
 if __name__ == '__main__':

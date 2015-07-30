@@ -19,7 +19,8 @@ def Main():
 	Def : Main entry point. Read command line options and start the game.
 	'''
 	args = ReadOptions()
-	game = Game(args.address, args.delay)
+	idd = 1 # TODO just for debug
+	game = Game(idd, args.address, args.delay)
 	game.start()
 
 

@@ -67,19 +67,16 @@ Vaults: It's the safest place in our world.
 -Trade room:
 -Training room:
 
-
 ++Characters:
 Humans:
 -Workers:
 -traders:
 -Mutant fighters (gill formation: genetic evolution):
 
-
 ++Sea creatures:
 -Legendary monsters (kraken, leviathan):
 -spider crab:
 -frilled shark:
-
 
 ++Weapons:
 1) Build in the vault
@@ -90,7 +87,6 @@ Humans:
 ++Research:
 -good scientists develop better technology quicker
 
-
 ++Resources
 -air
 -drinking water
@@ -99,4 +95,9 @@ Humans:
 ++Trading
 -trade resources and characters with other vaults
 -send expert emissaries to conclude better deals
+
+++Rooms
+-kitchen
+-steam
+-lab
 

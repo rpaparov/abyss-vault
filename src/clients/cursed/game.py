@@ -9,7 +9,8 @@ KEY_ESCAPE = 27
 
 class Game():
 	
-	def __init__(self, address, delay, shelterSize=(30, 10), roomSize=(5, 4)):
+	def __init__(self, idd, address, delay, shelterSize=(30, 10), roomSize=(5, 4)):
+		self.id = idd
 		self.delay = delay
 		self.doShow = True
 		self.roomSize = roomSize

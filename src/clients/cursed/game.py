@@ -3,6 +3,7 @@ import curses
 from common.variousTypes import RoomType
 from common.shelter import Shelter
 from common.networking import QueryServer
+from common.log import log
 
 KEY_ESCAPE = 27
 
@@ -21,7 +22,7 @@ class Game():
 		self.tcpPort = int(address.split(':')[1])
 		self.shelterSize = (0, 0)
 		self.shelter = Shelter((0, 0))
-		self.updateShelter(shelterSize)
+
 	
 	def start(self):
 		'''
@@ -122,7 +123,7 @@ class Game():
 	
 	
 	def drawShelterWindow(self, win):
-		for room in self.shelter.rooms:
+		for room in self.shelter.rooms.flatten():
 			self.drawRoom(win, room)
 	
 	
@@ -142,6 +143,9 @@ class Game():
 		offy = room.position[1] * self.roomSize[1] + 1
 		for i in range(self.roomSize[0]):
 			for j in range(self.roomSize[1]):
+				log(j + offy)
+				log(i + offx)
+				log(curses.color_pair(room.type))
 				win.addstr(j + offy, i + offx, ' ', curses.color_pair(room.type))
 			
 	

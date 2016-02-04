@@ -6,7 +6,6 @@ from common.networking import CompactJson
 
 class GameServer(socketserver.ThreadingTCPServer):
 	allow_reuse_address = True
-	
 
 
 class GameServerHandler(socketserver.BaseRequestHandler):

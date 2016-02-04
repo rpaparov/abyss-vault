@@ -72,10 +72,10 @@ class Game():
 			
 			self.dealInputs(screen)
 			self.shelter.update()
-			self.lastAnswer = QueryServer(self.tcpAdd, self.tcpPort, {'query' : 'refresh'})
+			self.lastAnswer = QueryServer(self.tcpAdd, self.tcpPort, {'query' : 'update'})
 			
 			(dy, dx) = screen.getmaxyx()
-						
+			
 			if dx >= self.minSizeX and dy >= self.minSizeY:
 				
 				lx = dx - hx
@@ -87,9 +87,9 @@ class Game():
 				win4 = curses.newwin(ly, hx, hy, lx) # shelter info
 	
 				windows = {win1 : self.drawCharacterInformationWindow,
-					        win2 : self.drawLogWindow,
-					        win3 : self.drawShelterWindow,
-					        win4 : self.drawShelterInformationWindow}
+				           win2 : self.drawLogWindow,
+				           win3 : self.drawShelterWindow,
+				           win4 : self.drawShelterInformationWindow}
 			
 				for win, func in windows.items():
 					win.box()
@@ -97,7 +97,7 @@ class Game():
 					win.refresh()
 			
 			else:
-				screen.addstr(0, 0, 'Please resize your terminal')
+				screen.addstr(0, 0, 'Please resize your terminal, xMin={}, yMin={}'.format(self.minSizeX, self.minSizeY))
 				
 			curses.napms(self.delay)
 	

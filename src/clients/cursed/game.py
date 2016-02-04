@@ -14,13 +14,14 @@ class Game():
 		self.delay = delay
 		self.doShow = True
 		self.roomSize = roomSize
-		self.shelterSize = shelterSize
-		self.shelter = Shelter(shelterSize)
 		self.minSizeX = shelterSize[0] * roomSize[0] + 30
 		self.minSizeY = shelterSize[1] * roomSize[1] + 10
 		self.mouse = {'y': None, 'x': None, 'state': None}
 		self.tcpAdd = address.split(':')[0]
 		self.tcpPort = int(address.split(':')[1])
+		self.shelterSize = (0, 0)
+		self.shelter = Shelter((0, 0))
+		self.UpdateShelter(shelterSize)
 	
 	def start(self):
 		'''
@@ -72,8 +73,11 @@ class Game():
 			
 			self.dealInputs(screen)
 			self.shelter.update()
-			self.lastAnswer = QueryServer(self.tcpAdd, self.tcpPort, {'query' : 'update'})
-			
+			self.serverResponse = QueryServer(self.tcpAdd, self.tcpPort,\
+			                                  {'query' : 'update', 'id' : self.id})
+
+			self.UpdateWorld(self.serverResponse)
+
 			(dy, dx) = screen.getmaxyx()
 			
 			if dx >= self.minSizeX and dy >= self.minSizeY:
@@ -100,8 +104,17 @@ class Game():
 				screen.addstr(0, 0, 'Please resize your terminal, xMin={}, yMin={}'.format(self.minSizeX, self.minSizeY))
 				
 			curses.napms(self.delay)
-	
-	
+
+
+	def UpdateWorld(self, serverResponse):
+		self.UpdateShelter(serverResponse['shelterSize'])
+
+
+	def UpdateShelter(self, shelterSize):
+		self.shelterSize = shelterSize
+		self.shelter = Shelter(shelterSize)	
+
+
 	def drawCharacterInformationWindow(self, win):
 		win.addstr(1, 1, 'Character information')
 	
@@ -119,7 +132,7 @@ class Game():
 		win.addstr(1, 1, 'Log')
 		mouseStr = 'mouse: {} {} {}'.format(self.mouse['x'], self.mouse['y'], self.mouse['state'])
 		win.addstr(2, 1, mouseStr)
-		win.addstr(3, 1, '{}'.format(self.lastAnswer))
+		win.addstr(3, 1, '{}'.format(self.serverResponse))
 	
 	
 	def drawRoom(self, win, room):

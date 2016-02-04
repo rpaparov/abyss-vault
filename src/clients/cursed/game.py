@@ -67,9 +67,9 @@ class Game():
 		screen.keypad(1) # added for test
 		curses.mousemask(1) # added for test
 		
-		hx = self.shelterSize[0] * self.roomSize[0] + 2
-		hy = self.shelterSize[1] * self.roomSize[1] + 2
-			
+		hx = 30 * self.roomSize[0] + 2
+		hy = 10 * self.roomSize[1] + 2
+		
 		while self.doShow:
 			
 			self.dealInputs(screen)

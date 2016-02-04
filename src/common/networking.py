@@ -19,7 +19,7 @@ def QueryServer(tcpAdd, tcpPort, request):
 	# send query
 	soc.sendall(CompactJson(request))
 	# read answer
-	data = soc.recv(1024)
+	data = soc.recv(4096)
 	soc.close()
 	# decode answer and return
 	answer = data.decode('utf-8')

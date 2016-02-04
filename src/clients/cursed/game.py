@@ -132,7 +132,7 @@ class Game():
 		win.addstr(1, 1, 'Log')
 		mouseStr = 'mouse: {} {} {}'.format(self.mouse['x'], self.mouse['y'], self.mouse['state'])
 		win.addstr(2, 1, mouseStr)
-		win.addstr(3, 1, '{}'.format(self.serverResponse))
+		win.addstr(3, 1, '{}'.format(self.serverResponse.get('time')))
 	
 	
 	def drawRoom(self, win, room):

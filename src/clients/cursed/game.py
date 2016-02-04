@@ -21,7 +21,7 @@ class Game():
 		self.tcpPort = int(address.split(':')[1])
 		self.shelterSize = (0, 0)
 		self.shelter = Shelter((0, 0))
-		self.UpdateShelter(shelterSize)
+		self.updateShelter(shelterSize)
 	
 	def start(self):
 		'''
@@ -72,11 +72,11 @@ class Game():
 		while self.doShow:
 			
 			self.dealInputs(screen)
-			self.shelter.update()
+
 			self.serverResponse = QueryServer(self.tcpAdd, self.tcpPort,\
 			                                  {'query' : 'update', 'id' : self.id})
 
-			self.UpdateWorld(self.serverResponse)
+			self.updateWorld(self.serverResponse)
 
 			(dy, dx) = screen.getmaxyx()
 			
@@ -106,13 +106,15 @@ class Game():
 			curses.napms(self.delay)
 
 
-	def UpdateWorld(self, serverResponse):
-		self.UpdateShelter(serverResponse['shelterSize'])
+	def updateWorld(self, serverResponse):
+		self.updateShelter(serverResponse['shelterSize'],\
+		                   serverResponse['roomTypes'])
 
 
-	def UpdateShelter(self, shelterSize):
+	def updateShelter(self, shelterSize, roomTypes):
 		self.shelterSize = shelterSize
-		self.shelter = Shelter(shelterSize)	
+		self.shelter = Shelter(shelterSize)
+		self.shelter.update(roomTypes)
 
 
 	def drawCharacterInformationWindow(self, win):
